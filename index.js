@@ -1,8 +1,9 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
+const dotenv = require("dotenv");
 const cors = require("cors");
+dotenv.config()
 
 const authRoutes = require("./routes/auth.js")
 const listingRoutes = require("./routes/listing.js")
@@ -22,12 +23,14 @@ app.use("/users", userRoutes)
 /* MONGOOSE SETUP */
 const PORT = 3001;
 mongoose
-  .connect(process.env.MONGO_URL, {
-    dbName: "Dream_Nest",
+  .connect(process.env.MONGO_URI, {
+    dbName: "Homelink4",
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
+  
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
   })
   .catch((err) => console.log(`${err} did not connect`));
+console.log(process.env.MONGO_URI)
